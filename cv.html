@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>CV - Smain Younes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Animate.css -->
+
+    <!-- html2pdf -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --bg: #f4f6f9;
+            --text-muted: #6c757d;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            font-family: "Segoe UI", sans-serif;
+            color: #212529;
+        }
+
+        /* ACTION BUTTONS */
+        .actions {
+            max-width: 1100px;
+            margin: 20px auto 0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .actions button {
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            background: var(--primary);
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .actions button:hover {
+            opacity: 0.9;
+        }
+
+        /* CV WRAPPER */
+        .cv-wrapper {
+            max-width: 1100px;
+            margin: 20px auto 40px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.1);
+            overflow: hidden;
+            display: flex;
+            min-height: 100%;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 32%;
+            background: var(--primary);
+            color: #fff;
+            padding: 30px;
+        }
+
+        .sidebar h2 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        .sidebar p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .sidebar h4 {
+            margin-top: 26px;
+            font-size: 17px;
+            border-bottom: 2px solid rgba(255,255,255,.3);
+            padding-bottom: 6px;
+        }
+
+        .sidebar ul {
+            padding-left: 18px;
+            margin-top: 10px;
+        }
+
+        .sidebar li {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        /* CONTENT */
+        .content {
+            width: 68%;
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .name {
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .title {
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .section {
+            margin-top: 35px;
+        }
+
+        .section h3 {
+            font-size: 22px;
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+            margin-bottom: 20px;
+        }
+
+        .experience-item {
+            margin-bottom: 22px;
+        }
+
+        .experience-item h5 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .experience-item span {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .experience-item p {
+            margin-top: 8px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .cv-wrapper {
+                flex-direction: column;
+            }
+
+            .sidebar,
+            .content {
+                width: 100%;
+            }
+        }
+
+        /* PRINT */
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .actions {
+                display: none;
+            }
+
+            .cv-wrapper {
+                box-shadow: none;
+                margin: 0;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="actions">
+    <button onclick="downloadPDF()">Télécharger PDF</button>
+</div>
+
+<div id="cv" class="cv-wrapper animate__animated animate__fadeIn">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar animate__animated animate__fadeInLeft">
+        <img src="me.jpg" crossorigin="anonymous" style="width: 100%; border-radius: 50%;">
+        <div style="text-align: center;">
+            <h2>SMAIN YOUNES</h2>
+            <p>Développeur Web Fullstack</p>
+        </div>
+
+        <h4>Contact</h4>
+        <p><strong>Adresse :</strong><br>47 Route de Blida<br>Oued El Alleug</p>
+        <p><strong>Téléphone :</strong><br>0675 32 64 51<br>0552 79 14 23</p>
+        <p><strong>Email :</strong><br>younes.abd.smain@gmail.com</p>
+
+        <h4>Compétences Techniques</h4>
+        <ul>
+            <li>HTML5 / CSS3 / JavaScript / jQuery</li>
+            <li>PHP Orienté Objet (MVC)</li>
+            <li>Laravel</li>
+            <li>SQL / MySQL</li>
+            <li>Linux (Ubuntu)</li>
+            <li>Git / GitHub</li>
+        </ul>
+
+        <h4>Langues</h4>
+        <ul>
+            <li>Arabe : Courant</li>
+            <li>Français : Courant</li>
+            <li>Anglais : Professionnel</li>
+        </ul>
+
+        <h4>Centres d’intérêt</h4>
+        <p>
+            Passionné par les nouvelles technologies
+            et le développement informatique.
+        </p>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content animate__animated animate__fadeInRight">
+
+        <div class="header">
+            <div class="name">SMAIN YOUNES</div>
+            <div class="title">DÉVELOPPEUR WEB FULLSTACK</div>
+        </div>
+
+        <section class="section">
+            <h3>Profil Professionnel</h3>
+            <p>
+                Développeur web fullstack expérimenté, orienté performance et qualité,
+                spécialisé dans le développement d’applications web robustes,
+                la refonte complète de plateformes existantes et la maintenance évolutive.
+                Solide maîtrise de Laravel et des architectures MVC,
+                avec une forte capacité d’adaptation et d’autonomie.
+            </p>
+        </section>
+
+        <section class="section">
+            <h3>Expériences Professionnelles</h3>
+
+            <div class="experience-item">
+                <h5>Développeur Web Fullstack – Ideal Mobili</h5>
+                <span>Septembre 2024 – Présent</span>
+                <p>
+                    Refonte complète du site web (frontend et backend).
+                    Développement de fonctionnalités métier,
+                    optimisation des performances,
+                    maintenance continue et gestion globale de la plateforme.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <h5>Développeur Web Fullstack – Freelance</h5>
+                <span>2020 – Présent (en parallèle)</span>
+                <p>
+                    Conception et maintenance de solutions web sur mesure.
+                    Développement d’applications Laravel from scratch,
+                    correction de bugs,
+                    optimisation des performances
+                    et évolutions fonctionnelles.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <h5>Développeur Web Fullstack – Sadeem Informatique</h5>
+                <span>04/2023 – 03/2024</span>
+                <p>
+                    Maintenance corrective et évolutive,
+                    développement de projets complets,
+                    intégration Figma vers HTML,
+                    Laravel et Bootstrap.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <h5>Développeur Web Fullstack – Createk Solutions</h5>
+                <span>10/2022 – 23/04/2023</span>
+                <p>
+                    Développement de solutions web from scratch,
+                    ajout de fonctionnalités avancées,
+                    Laravel et intégration UI/UX.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <h5>Développeur Web Fullstack – Khotwa-Tech</h5>
+                <span>2021 – 09/2022</span>
+                <p>
+                    Développement d’API,
+                    maintenance applicative,
+                    intégration Figma vers HTML,
+                    Laravel.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <h5>Développeur Web Fullstack – Box DZ</h5>
+                <span>2019 (2 mois)</span>
+                <p>
+                    Développement backend PHP/MySQL
+                    et frontend HTML/CSS/JavaScript.
+                    Réalisation de sites e-commerce
+                    et agences de voyage.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <h5>Développeur Web Fullstack – Entre Équipe</h5>
+                <span>2018</span>
+                <p>
+                    Participation au développement
+                    de la plateforme SOUKNA.dz
+                    destinée aux agences immobilières.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3>Diplômes & Certifications</h3>
+            <ul>
+                <li>Baccalauréat Scientifique – 2016</li>
+                <li>Certification Java (Débutant à Avancé) – PCMAX Blida</li>
+                <li>Certification Développement Mobile (Android Studio – Java) – PCMAX Blida</li>
+            </ul>
+        </section>
+
+    </main>
+</div>
+
+<script>
+    function downloadPDF() {
+        const element = document.getElementById('cv');
+
+        const opt = {
+            margin:       0,
+            filename:     'Smain_Younes_CV.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            },
+            jsPDF:        {
+                unit: 'mm',
+                format: 'a4',
+                orientation: 'portrait'
+            }
+        };
+
+        html2pdf()
+            .set(opt)
+            .from(element)
+            .save();
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Smain Younes | Portfolio Fullstack</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root[data-theme="light"] {
+            --bg: #ffffff;
+            --card-bg: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #6366f1;
+            --border: #e2e8f0;
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #0b0f1a;
+            --card-bg: #161b2a;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --primary: #818cf8;
+            --border: #2d3748;
+        }
+
+        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); scroll-behavior: smooth;}
+        body {
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(var(--bg), 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 20px;
+        }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.85rem; }
+        .cv-link { background: var(--primary); color: white !important; padding: 8px 16px; border-radius: 8px; }
+
+        /* --- Hero --- */
+        .hero {
+            height: 80vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 0 20px;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+        }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin: 0; font-weight: 800; line-height: 1.1; }
+        .hero p { color: var(--text-muted); max-width: 600px; margin: 20px 0; font-size: 1.1rem; }
+
+        /* --- Sections --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+        .section-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 50px; display: flex; align-items: center; gap: 15px; }
+        .section-title span { color: var(--primary); }
+
+        /* --- Tech Stack Bento --- */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .tech-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 25px 15px; border-radius: 20px;
+            text-align: center;
+        }
+        .tech-card i { font-size: 2.2rem; color: var(--primary); margin-bottom: 12px; display: block; }
+        .tech-card span { font-size: 0.9rem; font-weight: 600; }
+        
+        .ai-productivity {
+            background: linear-gradient(135deg, var(--primary), #a855f7);
+            color: white; padding: 30px; border-radius: 24px; display: flex; align-items: center; gap: 25px;
+            margin-top: 20px;
+        }
+
+        /* --- Experience Timeline --- */
+        .exp-timeline { border-left: 2px solid var(--border); padding-left: 40px; margin-left: 20px; position: relative; }
+        .exp-item { position: relative; margin-bottom: 50px; }
+        .exp-item::before {
+            content: ""; position: absolute; left: -49px; top: 0;
+            width: 16px; height: 16px; border-radius: 50%; background: var(--primary);
+            box-shadow: 0 0 15px var(--primary); border: 4px solid var(--bg);
+        }
+        .exp-item h3 { margin: 0; font-size: 1.3rem; font-weight: 700; }
+        .exp-item .company { color: var(--primary); font-weight: 700; font-size: 1rem; margin: 5px 0; display: block; }
+        .exp-item .date { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; margin-bottom: 12px; display: block; }
+        .exp-item p { font-size: 0.95rem; color: var(--text-muted); max-width: 800px; margin: 0; }
+
+        /* --- Projects Grid (3 per row) --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex; flex-direction: column;
+            transition: 0.4s ease;
+        }
+        .project-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .project-img {
+            height: 200px; background: #1e293b;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3.5rem; color: var(--primary);
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/400x200'); /* Placeholder for your screens */
+            background-size: cover; background-position: center;
+        }
+        .project-content { padding: 25px; flex-grow: 1; }
+        .project-content h3 { margin: 0 0 12px 0; font-size: 1.4rem; font-weight: 700; }
+        .project-content p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; height: 70px; overflow: hidden; }
+        .project-footer { padding: 20px 25px; border-top: 1px solid var(--border); }
+
+        /* --- Contact --- */
+        .contact-wrap {
+            display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px;
+            background: var(--card-bg); padding: 50px; border-radius: 40px; border: 1px solid var(--border);
+        }
+        .contact-form { display: flex; flex-direction: column; gap: 20px; }
+        .contact-form input, .contact-form textarea {
+            background: var(--bg); border: 1px solid var(--border);
+            padding: 16px; border-radius: 12px; color: var(--text-main); font-family: inherit; font-size: 1rem;
+        }
+        .contact-btn {
+            background: var(--primary); color: white; border: none; padding: 16px;
+            border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 1rem;
+        }
+
+        /* --- Floating UI --- */
+        .whatsapp-btn {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #25d366; color: white; width: 65px; height: 65px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 35px; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); z-index: 9999;
+            text-decoration: none; transition: 0.3s;
+        }
+        .whatsapp-btn:hover { transform: scale(1.1); }
+
+        @media (max-width: 900px) {
+            .contact-wrap { grid-template-columns: 1fr; padding: 30px; }
+            .nav-links { display: none; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div style="font-weight: 800; font-size: 1.4rem; letter-spacing: -1px;">SMAIN<span style="color:var(--primary)">.</span></div>
+        <div class="nav-links">
+            <a href="#tech">Tech</a>
+            <a href="#exp">Expériences</a>
+            <a href="#projets">Projets</a>
+            <a href="#contact">Contact</a>
+            <a href="cv.html" class="cv-link">Mon CV <i class="fa-solid fa-file-invoice"></i></a>
+            <button id="theme-btn" style="background:none; border:none; color:var(--text-main); cursor:pointer; font-size: 1.1rem;"><i class="fa-solid fa-moon"></i></button>
+        </div>
+    </div>
+</nav>
+
+<header class="hero">
+    <div data-aos="zoom-out" data-aos-duration="1000">
+        <h1 data-aos="fade-up">DÉVELOPPEUR <br><span style="color:var(--primary)">FULLSTACK LARAVEL</span></h1>
+        <p data-aos="fade-up" data-aos-delay="200">Expert en solutions web performantes. Je transforme vos visions métier en architectures robustes et interfaces modernes.</p>
+        <div data-aos="fade-up" data-aos-delay="400" style="display:flex; gap:15px; justify-content: center;">
+            <a href="#contact" class="cv-link" style="text-decoration:none; padding: 15px 40px; font-size: 1rem;">Me contacter</a>
+            <a href="cv.html" style="text-decoration:none; color:var(--text-main); border: 1px solid var(--border); padding: 15px 40px; border-radius:8px; font-weight: 600;">Voir CV</a>
+        </div>
+    </div>
+</header>
+
+<!-- TECHNOLOGY SECTION -->
+<div class="container" id="tech">
+    <h2 class="section-title" data-aos="fade-right">Stack <span>Technique</span></h2>
+    <div class="tech-grid">
+        <div class="tech-card" data-aos="zoom-in"><i class="fab fa-php"></i><span>PHP 8.x</span></div>
+        <div class="tech-card" data-aos="zoom-in" data-aos-delay="100"><i class="fab fa-laravel"></i><span>Laravel</span></div>
+        <div class="tech-card" data-aos="zoom-in" data-aos-delay="200"><i class="fab fa-js"></i><span>JavaScript</span></div>
+        <div class="tech-card" data-aos="zoom-in" data-aos-delay="300"><i class="fa-solid fa-database"></i><span>MySQL / SQL</span></div>
+        <div class="tech-card" data-aos="zoom-in" data-aos-delay="400"><i class="fab fa-linux"></i><span>Linux Ubuntu</span></div>
+        <div class="tech-card" data-aos="zoom-in" data-aos-delay="500"><i class="fab fa-git-alt"></i><span>Git / GitHub</span></div>
+    </div>
+    
+    <div class="ai-productivity" data-aos="fade-up">
+        <div style="font-size: 3rem;"><i class="fa-solid fa-bolt-lightning"></i></div>
+        <div>
+            <h4 style="margin:0; font-size:1.3rem; font-weight: 800;">Productivité Propulsée par l'IA</h4>
+            <p style="margin:8px 0 0 0; opacity:0.9; font-size:1rem; line-height: 1.5;">
+                J'intègre <strong>Gemini</strong> et <strong>ChatGPT</strong> dans mon workflow pour accélérer le développement, optimiser le code complexe et garantir une qualité de livraison supérieure en un temps record.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- EXPERIENCE SECTION -->
+<div class="container" id="exp">
+    <h2 class="section-title" data-aos="fade-right">Expériences <span>Professionnelles</span></h2>
+    <div class="exp-timeline">
+        
+        <div class="exp-item" data-aos="fade-left">
+            <span class="date">Septembre 2024 – Présent</span>
+            <h3>Développeur Web Fullstack</h3>
+            <span class="company">Ideal Mobili</span>
+            <p>Refonte complète du site web (frontend et backend). Développement de fonctionnalités métier, optimisation des performances et maintenance continue.</p>
+        </div>
+
+        <div class="exp-item" data-aos="fade-left">
+            <span class="date">2020 – Présent (Freelance)</span>
+            <h3>Développeur Laravel Indépendant</h3>
+            <span class="company">Freelance</span>
+            <p>Conception d’applications Laravel from scratch, correction de bugs complexes, optimisation de bases de données et évolutions fonctionnelles pour clients divers.</p>
+        </div>
+
+        <div class="exp-item" data-aos="fade-left">
+            <span class="date">2023 – 2024</span>
+            <h3>Développeur Web Fullstack</h3>
+            <span class="company">Sadeem Informatique</span>
+            <p>Maintenance corrective et évolutive, intégration de maquettes Figma vers HTML/Laravel et Bootstrap.</p>
+        </div>
+
+        <div class="exp-item" data-aos="fade-left">
+            <span class="date">2022 – 2023</span>
+            <h3>Développeur Web Fullstack</h3>
+            <span class="company">Createk Solutions</span>
+            <p>Développement de solutions web from scratch, ajout de fonctionnalités avancées sous Laravel et intégration UI/UX.</p>
+        </div>
+
+        <div class="exp-item" data-aos="fade-left">
+            <span class="date">2021 – 2022</span>
+            <h3>Développeur Web Fullstack</h3>
+            <span class="company">Khotwa-Tech</span>
+            <p>Développement d’API robustes, maintenance applicative et intégration Figma.</p>
+        </div>
+
+        <div class="exp-item" data-aos="fade-left">
+            <span class="date">2019 (2 mois)</span>
+            <h3>Développeur Fullstack</h3>
+            <span class="company">Box DZ</span>
+            <p>Réalisation de sites e-commerce et plateformes pour agences de voyage (PHP/MySQL).</p>
+        </div>
+
+        <!-- <div class="exp-item" data-aos="fade-left">
+            <span class="date">2018</span>
+            <h3>Développeur Web</h3>
+            <span class="company">Entre Équipe</span>
+            <p>Participation au développement de la plateforme immobilière <strong>SOUKNA.dz</strong>.</p>
+        </div> -->
+
+    </div>
+</div>
+
+<!-- PROJECTS SECTION -->
+<div class="container" id="projets">
+    <h2 class="section-title" data-aos="fade-right">Portfolio <span>Majeur</span></h2>
+    <div class="projects-grid">
+        
+        <div class="project-card" data-aos="fade-up">
+            <div class="project-img"><i class="fa-solid fa-hand-holding-heart"></i></div>
+            <div class="project-content">
+                <h3>Sanad-DZ</h3>
+                <p>Plateforme dédiée au soutien émotionnel et psychologique pour les adolescents.</p>
+            </div>
+            <div class="project-footer">
+                <a href="https://sanad-dz.com/" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Voir le projet <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="project-img"><i class="fa-solid fa-rocket"></i></div>
+            <div class="project-content">
+                <h3>ProstoreDZ</h3>
+                <p>Plateforme SaaS e-commerce multi-boutiques développée de A à Z.</p>
+            </div>
+            <div class="project-footer">
+                <a href="https://prostoredz.com/" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Voir le projet <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="project-img"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="project-content">
+                <h3>Courassy</h3>
+                <p>Plateforme éducative avec API complète pour application mobile native.</p>
+            </div>
+            <div class="project-footer">
+                <a href="https://courassy.com/" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Voir le projet <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up">
+            <div class="project-img"><i class="fa-solid fa-car-side"></i></div>
+            <div class="project-content">
+                <h3>TAL Location</h3>
+                <p>Système ERP de location de véhicules et gestion de flotte avec paiement en ligne.</p>
+            </div>
+            <div class="project-footer">
+                <a href="http://www.tal-location.com/" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Voir le projet <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="project-img"><i class="fa-solid fa-gear"></i></div>
+            <div class="project-content">
+                <h3>SiTrain - Siemens</h3>
+                <p>Portail de réservation de formations professionnelles pour Siemens Algérie.</p>
+            </div>
+            <div class="project-footer">
+                <a href="https://sitrain.siemens.dz/" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Voir le projet <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="project-img"><i class="fa-solid fa-house-chimney"></i></div>
+            <div class="project-content">
+                <h3>Ideal Mobili</h3>
+                <p>E-commerce mobilier : Refonte UX/UI et optimisation du tunnel de commande.</p>
+            </div>
+            <div class="project-footer">
+                <a href="https://idealmobilidz.com/" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Voir le projet <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- CONTACT SECTION -->
+<div class="container" id="contact">
+    <div class="contact-wrap" data-aos="zoom-in">
+        <div>
+            <h2 style="margin:0; font-size:2.5rem; letter-spacing: -1px;">Collaborons ensemble.</h2>
+            <p style="color:var(--text-muted); margin:25px 0; font-size: 1.1rem;">Une idée de projet ? Contactez-moi pour en discuter et obtenir un devis gratuit.</p>
+            <div style="font-size: 1rem; display: flex; flex-direction: column; gap: 15px;">
+                <span><i class="fa-solid fa-envelope" style="color:var(--primary); margin-right: 10px;"></i> younes.abd.smain@gmail.com</span>
+                <span><i class="fa-solid fa-phone" style="color:var(--primary); margin-right: 10px;"></i> 0675 32 64 51</span>
+            </div>
+        </div>
+        <form class="contact-form">
+            <input type="text" placeholder="Votre nom" required>
+            <input type="email" placeholder="Votre email" required>
+            <textarea placeholder="Votre message..." rows="5" required></textarea>
+            <button class="contact-btn" type="submit">Envoyer le message <i class="fa-solid fa-paper-plane" style="margin-left: 10px;"></i></button>
+        </form>
+    </div>
+</div>
+
+<footer style="text-align:center; padding: 60px 20px; border-top:1px solid var(--border); margin-top: 50px;">
+    <p style="font-size:0.9rem; opacity:0.7;">© 2025 SMAIN YOUNES. Tous droits réservés.</p>
+    <div style="margin-top: 20px; display: flex; justify-content: center; gap: 20px; font-size: 1.5rem;">
+        <a href="#" style="color:var(--text-main)"><i class="fab fa-github"></i></a>
+        <a href="#" style="color:var(--text-main)"><i class="fab fa-linkedin"></i></a>
+    </div>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/213675326451" class="whatsapp-btn" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true });
+
+    // Theme Toggle Logic
+    const themeBtn = document.getElementById('theme-btn');
+    const html = document.documentElement;
+    themeBtn.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        themeBtn.innerHTML = next === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+    });
+</script>
+
+</body>
+</html>
