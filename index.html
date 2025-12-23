@@ -152,7 +152,7 @@
 
         /* --- Floating UI --- */
         .whatsapp-btn {
-            position: fixed; bottom: 30px; right: 30px;
+            position: fixed; bottom: 85px; right: 5px;
             background: #25d366; color: white; width: 65px; height: 65px;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-size: 35px; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); z-index: 9999;
@@ -206,7 +206,7 @@
         <div class="tech-card" data-aos="zoom-in" data-aos-delay="500"><i class="fab fa-git-alt"></i><span>Git / GitHub</span></div>
     </div>
     
-    <div class="ai-productivity" data-aos="fade-up">
+    <!-- <div class="ai-productivity" data-aos="fade-up">
         <div style="font-size: 3rem;"><i class="fa-solid fa-bolt-lightning"></i></div>
         <div>
             <h4 style="margin:0; font-size:1.3rem; font-weight: 800;">Productivité Propulsée par l'IA</h4>
@@ -214,7 +214,7 @@
                 J'intègre <strong>Gemini</strong> et <strong>ChatGPT</strong> dans mon workflow pour accélérer le développement, optimiser le code complexe et garantir une qualité de livraison supérieure en un temps record.
             </p>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <!-- EXPERIENCE SECTION -->
@@ -369,7 +369,7 @@
         
             <textarea name="message" placeholder="Votre message..." rows="5" required></textarea>
         
-            <button class="contact-btn" type="submit">
+            <button class="contact-btn" type="submit" id="send_button">
                 Envoyer le message
                 <i class="fa-solid fa-paper-plane" style="margin-left: 10px;"></i>
             </button>
@@ -381,12 +381,12 @@
     </div>
 </div>
 
-<footer style="text-align:center; padding: 60px 20px; border-top:1px solid var(--border); margin-top: 50px;">
-    <p style="font-size:0.9rem; opacity:0.7;">© 2025 SMAIN YOUNES. Tous droits réservés.</p>
-    <div style="margin-top: 20px; display: flex; justify-content: center; gap: 20px; font-size: 1.5rem;">
+<footer style="text-align:center; padding: 20px 20px; border-top:1px solid var(--border); margin-top: 50px;">
+    <p style="font-size:0.9rem; opacity:0.7;">© <span id="current_year"></span> SMAIN YOUNES. Tous droits réservés.</p>
+    <!-- <div style="margin-top: 20px; display: flex; justify-content: center; gap: 20px; font-size: 1.5rem;">
         <a href="#" style="color:var(--text-main)"><i class="fab fa-github"></i></a>
         <a href="#" style="color:var(--text-main)"><i class="fab fa-linkedin"></i></a>
-    </div>
+    </div> -->
 </footer>
 
 <!-- Floating WhatsApp -->
@@ -409,33 +409,36 @@
         html.setAttribute('data-theme', next);
         themeBtn.innerHTML = next === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
     });
+
+    document.getElementById("current_year").textContent = new Date().getFullYear();
 </script>
 <script>
     const form = document.getElementById("contactForm");
     const status = document.getElementById("formStatus");
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3qoucNSFOO96MIIs4HEjzs7dA9cHpD5iUdzyXGenJM7ti9KkZJBaBB18mG9ntlpx8zg/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbybG1_c3PVtP0_B3YJtekCWl5HnmaBsu-547zXUk27Aazqaj0XdA8HJYYVRF8_vKoiZ1w/exec";
     
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       status.textContent = "Envoi en cours...";
       status.style.color = "var(--text-muted)";
-    
+      const btn = document.getElementById("send_button");
+      btn.disabled = true;
+
       grecaptcha.ready(async () => {
         const token = await grecaptcha.execute("6LfgkzQsAAAAAAuOnjqjUVGAfTsrx6-CTK3r3Pux", { action: "submit" });
     
-        const payload = {
-          name: form.name.value,
-          email: form.email.value,
-          message: form.message.value,
-          company: form.company.value,
-          token: token
-        };
+        const data = new URLSearchParams();
+        data.append("name", form.name.value);
+        data.append("email", form.email.value);
+        data.append("message", form.message.value);
+        data.append("company", form.company.value);
+        data.append("token", token);
+
     
         try {
           const res = await fetch(SCRIPT_URL, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
+            body: data,
           });
     
           const result = await res.json();
@@ -453,6 +456,7 @@
           status.textContent = "Erreur réseau. Veuillez réessayer.";
           status.style.color = "red";
         }
+        btn.disabled = false;
       });
     });
 </script>
