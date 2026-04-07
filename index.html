@@ -1,406 +1,476 @@
 
 <!DOCTYPE html>
-<html lang="fr" data-theme="dark">
+<html lang="fr" data-theme="dark" dir="ltr">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Smain Younes | Portfolio Fullstack</title>
     
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
+        /* --- COULEURS : MIDNIGHT ABYSS & CYBER MINT --- */
         :root[data-theme="light"] {
-            --bg: #ffffff;
-            --card-bg: #f8fafc;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --primary: #6366f1;
-            --border: #e2e8f0;
+            --bg: #F4F7F6;
+            --surface: #FFFFFF;
+            --surface-hover: #E9ECEF;
+            --border: #DDE2E5;
+            --text-main: #1A202C;
+            --text-muted: #64748B;
+            --accent: #0081A7;
+            --accent-glow: rgba(0, 129, 167, 0.15);
+            --gradient: linear-gradient(135deg, #0081A7, #00AFB9);
+            --btn-text: #FFFFFF;
         }
 
         :root[data-theme="dark"] {
-            --bg: #0b0f1a;
-            --card-bg: #161b2a;
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --primary: #818cf8;
-            --border: #2d3748;
+            --bg: #0B0F19;
+            --surface: #151E2E;
+            --surface-hover: #1E293B;
+            --border: #2A3B52;
+            --text-main: #F1F5F9;
+            --text-muted: #94A3B8;
+            --accent: #00F5D4;
+            --accent-glow: rgba(0, 245, 212, 0.15);
+            --gradient: linear-gradient(135deg, #00F5D4, #00BBF9);
+            --btn-text: #0B0F19;
         }
 
-        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); scroll-behavior: smooth;}
+        /* --- RESET & BASICS --- */
+        * { box-sizing: border-box; transition: background-color 0.3s, border-color 0.3s, color 0.3s; scroll-behavior: smooth; }
         body {
-            margin: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            overflow-x: hidden;
+            margin: 0; font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg); color: var(--text-main);
+            overflow-x: hidden; line-height: 1.6;
         }
-
-        /* --- Navigation --- */
-        nav {
-            position: fixed;
-            top: 0; width: 100%;
-            background: rgba(var(--bg), 0.8);
-            backdrop-filter: blur(12px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
-        }
-        .nav-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 12px 20px;
-        }
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.85rem; }
-        .cv-link { background: var(--primary); color: white !important; padding: 8px 16px; border-radius: 8px; }
-
-        /* --- Hero --- */
-        .hero {
-            height: 80vh;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 0 20px;
-            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
-        }
-        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin: 0; font-weight: 800; line-height: 1.1; }
-        .hero p { color: var(--text-muted); max-width: 600px; margin: 20px 0; font-size: 1.1rem; }
-
-        /* --- Sections --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
-        .section-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 50px; display: flex; align-items: center; gap: 15px; }
-        .section-title span { color: var(--primary); }
-
-        /* --- Tech Stack Bento --- */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        .tech-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 25px 15px; border-radius: 20px;
-            text-align: center;
-        }
-        .tech-card i { font-size: 2.2rem; color: var(--primary); margin-bottom: 12px; display: block; }
-        .tech-card span { font-size: 0.9rem; font-weight: 600; }
         
-        .ai-productivity {
-            background: linear-gradient(135deg, var(--primary), #a855f7);
-            color: white; padding: 30px; border-radius: 24px; display: flex; align-items: center; gap: 25px;
-            margin-top: 20px;
+        /* Font for Arabic RTL */
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+
+        /* Subtle Background Grid */
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px; opacity: 0.15; z-index: -1; pointer-events: none;
         }
 
-        /* --- Experience Timeline --- */
-        .exp-timeline { border-left: 2px solid var(--border); padding-left: 40px; margin-left: 20px; position: relative; }
-        .exp-item { position: relative; margin-bottom: 50px; }
-        .exp-item::before {
-            content: ""; position: absolute; left: -49px; top: 0;
-            width: 16px; height: 16px; border-radius: 50%; background: var(--primary);
-            box-shadow: 0 0 15px var(--primary); border: 4px solid var(--bg);
-        }
-        .exp-item h3 { margin: 0; font-size: 1.3rem; font-weight: 700; }
-        .exp-item .company { color: var(--primary); font-weight: 700; font-size: 1rem; margin: 5px 0; display: block; }
-        .exp-item .date { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; margin-bottom: 12px; display: block; }
-        .exp-item p { font-size: 0.95rem; color: var(--text-muted); max-width: 800px; margin: 0; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 100px 20px; }
 
-        /* --- Projects Grid (3 per row) --- */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
+        /* --- FLOATING NAVBAR & LANG SWITCHER --- */
+        nav {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(var(--surface), 0.85); backdrop-filter: blur(16px);
+            border: 1px solid var(--border); padding: 10px 20px; border-radius: 50px;
+            display: flex; align-items: center; gap: 30px; z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
-        .project-card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            display: flex; flex-direction: column;
-            transition: 0.4s ease;
-        }
-        .project-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .project-img {
-            height: 200px; background: #1e293b;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 3.5rem; color: var(--primary);
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/400x200'); /* Placeholder for your screens */
-            background-size: cover; background-position: center;
-        }
-        .project-content { padding: 25px; flex-grow: 1; }
-        .project-content h3 { margin: 0 0 12px 0; font-size: 1.4rem; font-weight: 700; }
-        .project-content p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; height: 70px; overflow: hidden; }
-        .project-footer { padding: 20px 25px; border-top: 1px solid var(--border); }
+        .nav-brand { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; color: var(--text-main); text-decoration: none; }
+        .nav-brand span { color: var(--accent); }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a.text-link { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 0.9rem; transition: 0.2s; }
+        .nav-links a.text-link:hover { color: var(--accent); }
+        .theme-btn { background: none; border: none; color: var(--text-main); cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; background: var(--surface-hover); }
 
-        /* --- Contact --- */
-        .contact-wrap {
-            display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px;
-            background: var(--card-bg); padding: 50px; border-radius: 40px; border: 1px solid var(--border);
-        }
-        .contact-form { display: flex; flex-direction: column; gap: 20px; }
-        .contact-form input, .contact-form textarea {
-            background: var(--bg); border: 1px solid var(--border);
-            padding: 16px; border-radius: 12px; color: var(--text-main); font-family: inherit; font-size: 1rem;
-        }
-        .contact-btn {
-            background: var(--primary); color: white; border: none; padding: 16px;
-            border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 1rem;
-        }
+        .lang-switcher { position: relative; display: inline-block; }
+        .lang-btn { background: var(--surface-hover); border: 1px solid var(--border); color: var(--text-main); padding: 6px 12px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 5px; font-family: inherit; }
+        .lang-menu { position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%); background: var(--surface); border: 1px solid var(--border); border-radius: 12px; display: none; flex-direction: column; min-width: 120px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; padding: 5px; }
+        
+        .lang-menu.show { display: flex; }
+        
+        .lang-menu button { background: none; border: none; padding: 10px 15px; text-align: left; cursor: pointer; color: var(--text-muted); font-family: inherit; font-size: 0.9rem; font-weight: 600; border-radius: 8px; transition: 0.2s; }
+        .lang-menu button:hover { background: var(--surface-hover); color: var(--accent); }
+        [dir="rtl"] .lang-menu button { text-align: right; }
 
-        /* --- Floating UI --- */
-        .whatsapp-btn {
-            position: fixed; bottom: 85px; right: 5px;
-            background: #25d366; color: white; width: 65px; height: 65px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 35px; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); z-index: 9999;
-            text-decoration: none; transition: 0.3s;
-        }
-        .whatsapp-btn:hover { transform: scale(1.1); }
+        /* --- HERO SECTION --- */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; position: relative; }
+        .hero-badge { background: var(--accent-glow); color: var(--accent); padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 25px; border: 1px solid var(--border); letter-spacing: 1px; text-transform: uppercase; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); margin: 0; font-weight: 800; line-height: 1.1; letter-spacing: -1px; }
+        .hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: var(--text-muted); max-width: 600px; margin: 30px 0; font-size: 1.2rem; }
+        .hero-btns { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn { padding: 14px 30px; border-radius: 12px; font-weight: 700; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; border: none; transition: transform 0.2s, box-shadow 0.2s; font-family: inherit; }
+        .btn-primary { background: var(--accent); color: var(--btn-text); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px var(--accent-glow); }
+        .btn-secondary { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: var(--surface-hover); }
 
+        /* --- SECTION TITLES --- */
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; font-weight: 800; margin: 0; letter-spacing: -1px; }
+        .section-header p { color: var(--text-muted); font-size: 1.1rem; margin-top: 10px; }
+
+        /* --- TECH STACK (PILLS) --- */
+        .tech-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; max-width: 800px; margin: 0 auto; }
+        .tech-pill { background: var(--surface); border: 1px solid var(--border); padding: 12px 24px; border-radius: 30px; font-weight: 600; font-size: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 10px; transition: 0.3s; direction: ltr; }
+        .tech-pill i { color: var(--accent); font-size: 1.2rem; }
+        .tech-pill:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 20px var(--accent-glow); }
+
+        /* --- EXPERIENCE TIMELINE --- */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
+        .timeline::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+        .timeline-item { position: relative; padding-left: 50px; margin-bottom: 40px; }
+        .timeline-dot { position: absolute; left: 11px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 6px var(--bg), 0 0 15px var(--accent-glow); }
+        .timeline-content { background: var(--surface); border: 1px solid var(--border); padding: 25px; border-radius: 16px; transition: 0.3s; }
+        .timeline-content:hover { border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .timeline-date { color: var(--accent); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 8px; }
+        .timeline-title { font-size: 1.2rem; font-weight: 700; margin: 0; }
+        .timeline-company { color: var(--text-muted); font-size: 0.95rem; font-weight: 600; margin-bottom: 15px; display: block; }
+        .timeline-text { font-size: 0.95rem; color: var(--text-muted); margin: 0; }
+
+        /* RTL Overrides for Timeline */
+        [dir="rtl"] .timeline::before { left: auto; right: 15px; }
+        [dir="rtl"] .timeline-item { padding-left: 0; padding-right: 50px; }
+        [dir="rtl"] .timeline-dot { left: auto; right: 11px; }
+
+        /* --- PROJECTS GRID --- */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: 0.4s; position: relative; }
+        .project-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .browser-header { background: var(--surface-hover); padding: 12px 15px; border-bottom: 1px solid var(--border); display: flex; gap: 6px; align-items: center; direction: ltr; }
+        .browser-dot { width: 10px; height: 10px; border-radius: 50%; background: #FF5F56; } 
+        .browser-dot:nth-child(2) { background: #FFBD2E; } 
+        .browser-dot:nth-child(3) { background: #27C93F; } 
+        .project-icon-area { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--accent); background: linear-gradient(to bottom right, var(--surface), var(--surface-hover)); }
+        [dir="rtl"] .project-icon-area { background: linear-gradient(to bottom left, var(--surface), var(--surface-hover)); }
+        .project-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .project-info h3 { margin: 0 0 10px 0; font-size: 1.3rem; font-weight: 700; direction: ltr; text-align: start; }
+        .project-info p { color: var(--text-muted); font-size: 0.95rem; margin: 0 0 20px 0; flex-grow: 1; }
+        .project-link { color: var(--text-main); text-decoration: none; font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; transition: color 0.3s; }
+        .project-link:hover { color: var(--accent); }
+
+        /* --- CONTACT SECTION --- */
+        .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .contact-info h3 { font-size: 2rem; margin: 0 0 15px 0; font-weight: 800; }
+        .contact-info p { color: var(--text-muted); margin-bottom: 30px; font-size: 1.05rem; }
+        .contact-method { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; font-weight: 600; direction: ltr; text-align: start; justify-content: flex-start;}
+        [dir="rtl"] .contact-method { flex-direction: row-reverse; justify-content: flex-end;}
+        .contact-method i { width: 40px; height: 40px; background: var(--surface-hover); display: flex; align-items: center; justify-content: center; border-radius: 10px; color: var(--accent); flex-shrink: 0; }
+        .form-group { margin-bottom: 20px; }
+        .form-control { width: 100%; background: var(--bg); border: 1px solid var(--border); padding: 15px; border-radius: 12px; color: var(--text-main); font-family: inherit; font-size: 1rem; transition: 0.3s; outline: none; }
+        .form-control:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-glow); }
+        .btn-submit { width: 100%; background: var(--accent); color: var(--btn-text); border: none; padding: 15px; border-radius: 12px; font-weight: 800; font-size: 1rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; font-family: inherit; }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 20px var(--accent-glow); }
+
+        /* --- FOOTER & FLOATING --- */
+        footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); margin-top: 50px; color: var(--text-muted); }
+        .whatsapp-btn { position: fixed; bottom: 30px; right: 30px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); z-index: 99; transition: transform 0.3s; text-decoration: none; }
+        .whatsapp-btn:hover { transform: scale(1.1) rotate(5deg); }
+        [dir="rtl"] .whatsapp-btn { right: auto; left: 30px; }
+
+        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
-            .contact-wrap { grid-template-columns: 1fr; padding: 30px; }
-            .nav-links { display: none; }
-            .projects-grid { grid-template-columns: 1fr; }
+            .contact-card { grid-template-columns: 1fr; padding: 30px; }
+        }
+        @media (max-width: 768px) {
+            nav { width: 90%; justify-content: space-between; padding: 10px 20px; }
+            .nav-links a.text-link { display: none; } 
+            .btn { width: 100%; justify-content: center; }
+            .hero-btns { flex-direction: column; width: 100%; }
         }
     </style>
 </head>
 <body>
 
+<!-- NAVIGATION -->
 <nav>
-    <div class="nav-container">
-        <div style="font-weight: 800; font-size: 1.4rem; letter-spacing: -1px;">SMAIN<span style="color:var(--primary)">.</span></div>
-        <div class="nav-links">
-            <a href="#tech">Tech</a>
-            <a href="#exp">Expériences</a>
-            <a href="#projets">Projets</a>
-            <a href="#contact">Contact</a>
-            <a href="cv.html" class="cv-link">Mon CV <i class="fa-solid fa-file-invoice"></i></a>
-            <button id="theme-btn" style="background:none; border:none; color:var(--text-main); cursor:pointer; font-size: 1.1rem;"><i class="fa-solid fa-moon"></i></button>
+    <a href="#" class="nav-brand">SMAIN<span>.</span></a>
+    <div class="nav-links">
+        <a href="#tech" class="text-link" data-i18n="nav_tech">Tech</a>
+        <a href="#exp" class="text-link" data-i18n="nav_exp">Expériences</a>
+        <a href="#projets" class="text-link" data-i18n="nav_proj">Projets</a>
+        <a href="#maquettes" class="text-link" data-i18n="nav_maq">Maquettes</a>
+        
+        <a href="cv.html" class="btn btn-primary" style="padding: 8px 15px; font-size: 0.85rem; border-radius: 30px;">
+            <span data-i18n="nav_cv">CV</span> <i class="fa-solid fa-download"></i>
+        </a>
+        
+        <!-- Language Switcher -->
+        <div class="lang-switcher">
+            <button class="lang-btn" id="current-lang-btn"><i class="fa-solid fa-globe"></i> FR</button>
+            <div class="lang-menu" id="lang-menu">
+                <button onclick="changeLang('fr')">Français</button>
+                <button onclick="changeLang('en')">English</button>
+                <button onclick="changeLang('ar')">العربية</button>
+            </div>
         </div>
+
+        <button id="theme-btn" class="theme-btn"><i class="fa-solid fa-moon"></i></button>
     </div>
 </nav>
 
-<header class="hero">
-    <div data-aos="zoom-out" data-aos-duration="1000">
-        <h1 data-aos="fade-up">DÉVELOPPEUR <br><span style="color:var(--primary)">FULLSTACK LARAVEL</span></h1>
-        <p data-aos="fade-up" data-aos-delay="200">Expert en solutions web performantes. Je transforme vos visions métier en architectures robustes et interfaces modernes.</p>
-        <div data-aos="fade-up" data-aos-delay="400" style="display:flex; gap:15px; justify-content: center;">
-            <a href="#contact" class="cv-link" style="text-decoration:none; padding: 15px 40px; font-size: 1rem;">Me contacter</a>
-            <a href="cv.html" style="text-decoration:none; color:var(--text-main); border: 1px solid var(--border); padding: 15px 40px; border-radius:8px; font-weight: 600;">Voir CV</a>
+<!-- HERO -->
+<section class="hero">
+    <div data-aos="fade-up">
+        <div class="hero-badge" data-i18n="hero_badge">Développeur Fullstack</div>
+    </div>
+    <h1 data-aos="fade-up" data-aos-delay="100">
+        <span style="color:var(--text-main); -webkit-text-fill-color: initial;" data-i18n="hero_title_1">Architecte Web</span><br>
+        <span data-i18n="hero_title_2">& Expert Laravel.</span>
+    </h1>
+    <p data-aos="fade-up" data-aos-delay="200" data-i18n="hero_desc">Je transforme des concepts complexes en applications web performantes, évolutives et esthétiques. De la base de données à l'interface utilisateur.</p>
+    <div class="hero-btns" data-aos="fade-up" data-aos-delay="300">
+        <a href="#contact" class="btn btn-primary"><span data-i18n="hero_btn_1">Démarrer un projet</span> <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#projets" class="btn btn-secondary" data-i18n="hero_btn_2">Voir mon travail</a>
+    </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="container" id="tech">
+    <div class="section-header" data-aos="fade-up">
+        <h2 data-i18n="tech_title">Technologies de prédilection</h2>
+        <p data-i18n="tech_desc">Les outils que j'utilise au quotidien pour construire l'avenir du web.</p>
+    </div>
+    <div class="tech-container">
+        <div class="tech-pill" data-aos="zoom-in"><i class="fab fa-php"></i> PHP 8.x</div>
+        <div class="tech-pill" data-aos="zoom-in" data-aos-delay="50"><i class="fab fa-laravel"></i> Laravel</div>
+        <div class="tech-pill" data-aos="zoom-in" data-aos-delay="100"><i class="fab fa-js"></i> JavaScript</div>
+        <div class="tech-pill" data-aos="zoom-in" data-aos-delay="150"><i class="fa-solid fa-database"></i> MySQL / SQL</div>
+        <div class="tech-pill" data-aos="zoom-in" data-aos-delay="250"><i class="fab fa-git-alt"></i> Git & GitHub</div>
+        <div class="tech-pill" data-aos="zoom-in" data-aos-delay="300"><i class="fa-brands fa-html5"></i> HTML/CSS</div>
+        <div class="tech-pill" data-aos="zoom-in" data-aos-delay="350"><i class="fa-solid fa-server"></i> API RESTful</div>
+    </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="container" id="exp">
+    <div class="section-header" data-aos="fade-up">
+        <h2 data-i18n="exp_title">Parcours Professionnel</h2>
+        <p data-i18n="exp_desc">Plusieurs années d'expérience dans la création de solutions digitales.</p>
+    </div>
+    <div class="timeline">
+        <div class="timeline-item" data-aos="fade-up">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span class="timeline-date" data-i18n="exp_1_date">Sept 2024 – Présent</span>
+                <h3 class="timeline-title" data-i18n="exp_1_title">Développeur Web Fullstack</h3>
+                <span class="timeline-company">Ideal Mobili</span>
+                <p class="timeline-text" data-i18n="exp_1_desc">Refonte complète de la plateforme (frontend et backend). Intégration de fonctionnalités métier complexes, optimisation des performances globales et maintenance applicative continue.</p>
+            </div>
+        </div>
+        <div class="timeline-item" data-aos="fade-up">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span class="timeline-date" data-i18n="exp_2_date">2020 – Présent</span>
+                <h3 class="timeline-title" data-i18n="exp_2_title">Développeur Laravel Indépendant</h3>
+                <span class="timeline-company" data-i18n="exp_2_comp">Freelance</span>
+                <p class="timeline-text" data-i18n="exp_2_desc">Conception d’applications sur-mesure sous Laravel, résolution de bugs critiques, conception et optimisation de bases de données relationnelles pour divers clients.</p>
+            </div>
+        </div>
+        <div class="timeline-item" data-aos="fade-up">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span class="timeline-date" data-i18n="exp_3_date">2023 – 2024</span>
+                <h3 class="timeline-title" data-i18n="exp_3_title">Développeur Web Fullstack</h3>
+                <span class="timeline-company">Sadeem Informatique</span>
+                <p class="timeline-text" data-i18n="exp_3_desc">Intégration fidèle de maquettes Figma vers des architectures HTML/Bootstrap/Laravel. Assuré la maintenance corrective et évolutive des projets de l'agence.</p>
+            </div>
+        </div>
+        <div class="timeline-item" data-aos="fade-up">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <span class="timeline-date" data-i18n="exp_4_date">2021 – 2023</span>
+                <h3 class="timeline-title" data-i18n="exp_4_title">Développeur Web Fullstack</h3>
+                <span class="timeline-company">Createk Solutions & Khotwa-Tech</span>
+                <p class="timeline-text" data-i18n="exp_4_desc">Développement from scratch, création d'API robustes pour applications mobiles, et implémentation de processus UX/UI avancés.</p>
+            </div>
         </div>
     </div>
-</header>
+</section>
 
-<!-- TECHNOLOGY SECTION -->
-<div class="container" id="tech">
-    <h2 class="section-title" data-aos="fade-right">Stack <span>Technique</span></h2>
-    <div class="tech-grid">
-        <div class="tech-card" data-aos="zoom-in"><i class="fab fa-php"></i><span>PHP 8.x</span></div>
-        <div class="tech-card" data-aos="zoom-in" data-aos-delay="100"><i class="fab fa-laravel"></i><span>Laravel</span></div>
-        <div class="tech-card" data-aos="zoom-in" data-aos-delay="200"><i class="fab fa-js"></i><span>JavaScript</span></div>
-        <div class="tech-card" data-aos="zoom-in" data-aos-delay="300"><i class="fa-solid fa-database"></i><span>MySQL / SQL</span></div>
-        <div class="tech-card" data-aos="zoom-in" data-aos-delay="400"><i class="fab fa-linux"></i><span>Linux Ubuntu</span></div>
-        <div class="tech-card" data-aos="zoom-in" data-aos-delay="500"><i class="fab fa-git-alt"></i><span>Git / GitHub</span></div>
+<!-- PROJECTS -->
+<section class="container" id="projets">
+    <div class="section-header" data-aos="fade-up">
+        <h2 data-i18n="proj_title">Portfolio Majeur</h2>
+        <p data-i18n="proj_desc">Sélection de projets récents déployés en production.</p>
+    </div>
+    <div class="projects-grid">
+        <div class="project-card" data-aos="fade-up">
+            <div class="browser-header"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+            <div class="project-icon-area"><i class="fa-solid fa-boxes-packing"></i></div>
+            <div class="project-info">
+                <h3>Caba DZ</h3>
+                <p data-i18n="proj_7_desc">Marketplace dédiée au listing de produits d'importation (Caba) incluant un espace pour poster des demandes.</p>
+                <a href="https://cabadz.com/" target="_blank" class="project-link"><span data-i18n="proj_visit">Visiter le site</span> <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="50">
+            <div class="browser-header"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+            <div class="project-icon-area"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <div class="project-info">
+                <h3>Chibani Walid E-learning</h3>
+                <p data-i18n="proj_8_desc">Plateforme d'e-learning performante conçue pour un professeur de mathématiques (vente de cours vidéo).</p>
+                <a href="https://chibaniwalid.com/" target="_blank" class="project-link"><span data-i18n="proj_visit">Visiter le site</span> <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="browser-header"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+            <div class="project-icon-area"><i class="fa-solid fa-ship"></i></div>
+            <div class="project-info">
+                <h3>IBFL DZ</h3>
+                <p data-i18n="proj_9_desc">Landing page moderne et vitrine digitale pour une entreprise spécialisée dans le transit et la logistique.</p>
+                <a href="https://ibfl-dz.com/" target="_blank" class="project-link"><span data-i18n="proj_visit">Visiter le site</span> <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="browser-header"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+            <div class="project-icon-area"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="project-info">
+                <h3>Courassy</h3>
+                <p data-i18n="proj_3_desc">Système éducatif complet intégrant une API performante servant de base à une application mobile native.</p>
+                <a href="https://courassy.com/" target="_blank" class="project-link"><span data-i18n="proj_visit">Visiter le site</span> <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="50">
+            <div class="browser-header"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+            <div class="project-icon-area"><i class="fa-solid fa-network-wired"></i></div>
+            <div class="project-info">
+                <h3>SiTrain - Siemens</h3>
+                <p data-i18n="proj_5_desc">Portail corporate B2B de réservation et gestion des formations professionnelles pour Siemens Algérie.</p>
+                <a href="https://sitrain.siemens.dz/" target="_blank" class="project-link"><span data-i18n="proj_visit">Visiter le site</span> <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="50">
+            <div class="browser-header"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+            <div class="project-icon-area"><i class="fa-solid fa-rocket"></i></div>
+            <div class="project-info">
+                <h3>ProstoreDZ</h3>
+                <p data-i18n="proj_2_desc">Plateforme SaaS e-commerce innovante permettant la gestion multi-boutiques avec un back-office centralisé.</p>
+                <a href="https://prostoredz.com/" target="_blank" class="project-link"><span data-i18n="proj_visit">Visiter le site</span> <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up">
+            <div class="browser-header"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+            <div class="project-icon-area"><i class="fa-solid fa-hand-holding-heart"></i></div>
+            <div class="project-info">
+                <h3>Sanad-DZ</h3>
+                <p data-i18n="proj_1_desc">Plateforme dédiée au soutien émotionnel et psychologique pour les adolescents. Interface sécurisée et confidentielle.</p>
+                <a href="https://sanad-dz.com/" target="_blank" class="project-link"><span data-i18n="proj_visit">Visiter le site</span> <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="project-card" data-aos="fade-up">
+            <div class="browser-header"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+            <div class="project-icon-area"><i class="fa-solid fa-car-side"></i></div>
+            <div class="project-info">
+                <h3>TAL Location</h3>
+                <p data-i18n="proj_4_desc">ERP sur-mesure pour la location de véhicules : gestion des plannings, de la flotte et paiement en ligne intégré.</p>
+                <a href="http://www.tal-location.com/" target="_blank" class="project-link"><span data-i18n="proj_visit">Visiter le site</span> <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+       
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="browser-header"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+            <div class="project-icon-area"><i class="fa-solid fa-couch"></i></div>
+            <div class="project-info">
+                <h3>Ideal Mobili</h3>
+                <p data-i18n="proj_6_desc">Boutique e-commerce d'ameublement avec refonte approfondie de l'UX/UI et optimisation du tunnel d'achat.</p>
+                <a href="https://idealmobilidz.com/" target="_blank" class="project-link"><span data-i18n="proj_visit">Visiter le site</span> <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        
+
+    </div>
+</section>
+
+<!-- MOCKUPS / PROPOSALS -->
+<section class="container" id="maquettes">
+    <div class="section-header" data-aos="fade-up">
+        <h2 data-i18n="maq_title">Propositions & Maquettes</h2>
+        <p data-i18n="maq_desc">Concepts, maquettes et propositions non retenus par les clients, mais qui valent le coup d'œil.</p>
     </div>
     
-    <!-- <div class="ai-productivity" data-aos="fade-up">
-        <div style="font-size: 3rem;"><i class="fa-solid fa-bolt-lightning"></i></div>
-        <div>
-            <h4 style="margin:0; font-size:1.3rem; font-weight: 800;">Productivité Propulsée par l'IA</h4>
-            <p style="margin:8px 0 0 0; opacity:0.9; font-size:1rem; line-height: 1.5;">
-                J'intègre <strong>Gemini</strong> et <strong>ChatGPT</strong> dans mon workflow pour accélérer le développement, optimiser le code complexe et garantir une qualité de livraison supérieure en un temps record.
-            </p>
-        </div>
-    </div> -->
-</div>
-
-<!-- EXPERIENCE SECTION -->
-<div class="container" id="exp">
-    <h2 class="section-title" style="display: block;" data-aos="fade-right">Expériences <span>Professionnelles</span></h2>
-    <div class="exp-timeline">
-        
-        <div class="exp-item" data-aos="fade-left">
-            <span class="date">Septembre 2024 – Présent</span>
-            <h3>Développeur Web Fullstack</h3>
-            <span class="company">Ideal Mobili</span>
-            <p>Refonte complète du site web (frontend et backend). Développement de fonctionnalités métier, optimisation des performances et maintenance continue.</p>
-        </div>
-
-        <div class="exp-item" data-aos="fade-left">
-            <span class="date">2020 – Présent (Freelance)</span>
-            <h3>Développeur Laravel Indépendant</h3>
-            <span class="company">Freelance</span>
-            <p>Conception d’applications Laravel from scratch, correction de bugs complexes, optimisation de bases de données et évolutions fonctionnelles pour clients divers.</p>
-        </div>
-
-        <div class="exp-item" data-aos="fade-left">
-            <span class="date">2023 – 2024</span>
-            <h3>Développeur Web Fullstack</h3>
-            <span class="company">Sadeem Informatique</span>
-            <p>Maintenance corrective et évolutive, intégration de maquettes Figma vers HTML/Laravel et Bootstrap.</p>
-        </div>
-
-        <div class="exp-item" data-aos="fade-left">
-            <span class="date">2022 – 2023</span>
-            <h3>Développeur Web Fullstack</h3>
-            <span class="company">Createk Solutions</span>
-            <p>Développement de solutions web from scratch, ajout de fonctionnalités avancées sous Laravel et intégration UI/UX.</p>
-        </div>
-
-        <div class="exp-item" data-aos="fade-left">
-            <span class="date">2021 – 2022</span>
-            <h3>Développeur Web Fullstack</h3>
-            <span class="company">Khotwa-Tech</span>
-            <p>Développement d’API robustes, maintenance applicative et intégration Figma.</p>
-        </div>
-
-        <div class="exp-item" data-aos="fade-left">
-            <span class="date">2019 (2 mois)</span>
-            <h3>Développeur Fullstack</h3>
-            <span class="company">Box DZ</span>
-            <p>Réalisation de sites e-commerce et plateformes pour agences de voyage (PHP/MySQL).</p>
-        </div>
-
-        <!-- <div class="exp-item" data-aos="fade-left">
-            <span class="date">2018</span>
-            <h3>Développeur Web</h3>
-            <span class="company">Entre Équipe</span>
-            <p>Participation au développement de la plateforme immobilière <strong>SOUKNA.dz</strong>.</p>
-        </div> -->
-
-    </div>
-</div>
-
-<!-- PROJECTS SECTION -->
-<div class="container" id="projets">
-    <h2 class="section-title" data-aos="fade-right">Portfolio <span>Majeur</span></h2>
     <div class="projects-grid">
         
         <div class="project-card" data-aos="fade-up">
-            <div class="project-img"><i class="fa-solid fa-hand-holding-heart"></i></div>
-            <div class="project-content">
-                <h3>Sanad-DZ</h3>
-                <p>Plateforme dédiée au soutien émotionnel et psychologique pour les adolescents.</p>
+            <div class="browser-header"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+            <div class="project-icon-area"><i class="fa-solid fa-pen-ruler"></i></div>
+            <div class="project-info">
+                <h3 data-i18n="maq_1_title">CM Blida</h3>
+                <p data-i18n="maq_1_desc">Proposition d'interface pour une entreprise locale (concept non retenu).</p>
+                <a href="https://smainyounes.github.io/cahiers-charges/cm-blida/prop3/" target="_blank" class="project-link"><span data-i18n="proj_visit">Visiter le site</span> <i class="fa-solid fa-arrow-right"></i></a>
             </div>
-            <div class="project-footer">
-                <a href="https://sanad-dz.com/" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Voir le projet <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="project-card" data-aos="fade-up" data-aos-delay="50">
+            <div class="browser-header"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+            <div class="project-icon-area"><i class="fa-solid fa-shirt"></i></div>
+            <div class="project-info">
+                <h3 data-i18n="maq_2_title">Clothes Gros</h3>
+                <p data-i18n="maq_2_desc">Maquette e-commerce B2B pour la vente de vêtements en gros.</p>
+                <a href="https://smainyounes.github.io/cahiers-charges/clothes-gros/prop3/" target="_blank" class="project-link"><span data-i18n="proj_visit">Visiter le site</span> <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </div>
 
         <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="project-img"><i class="fa-solid fa-rocket"></i></div>
-            <div class="project-content">
-                <h3>ProstoreDZ</h3>
-                <p>Plateforme SaaS e-commerce multi-boutiques développée de A à Z.</p>
-            </div>
-            <div class="project-footer">
-                <a href="https://prostoredz.com/" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Voir le projet <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-        </div>
-
-        <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="project-img"><i class="fa-solid fa-graduation-cap"></i></div>
-            <div class="project-content">
-                <h3>Courassy</h3>
-                <p>Plateforme éducative avec API complète pour application mobile native.</p>
-            </div>
-            <div class="project-footer">
-                <a href="https://courassy.com/" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Voir le projet <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-        </div>
-
-        <div class="project-card" data-aos="fade-up">
-            <div class="project-img"><i class="fa-solid fa-car-side"></i></div>
-            <div class="project-content">
-                <h3>TAL Location</h3>
-                <p>Système ERP de location de véhicules et gestion de flotte avec paiement en ligne.</p>
-            </div>
-            <div class="project-footer">
-                <a href="http://www.tal-location.com/" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Voir le projet <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-        </div>
-
-        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="project-img"><i class="fa-solid fa-gear"></i></div>
-            <div class="project-content">
-                <h3>SiTrain - Siemens</h3>
-                <p>Portail de réservation de formations professionnelles pour Siemens Algérie.</p>
-            </div>
-            <div class="project-footer">
-                <a href="https://sitrain.siemens.dz/" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Voir le projet <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-        </div>
-
-        <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="project-img"><i class="fa-solid fa-house-chimney"></i></div>
-            <div class="project-content">
-                <h3>Ideal Mobili</h3>
-                <p>E-commerce mobilier : Refonte UX/UI et optimisation du tunnel de commande.</p>
-            </div>
-            <div class="project-footer">
-                <a href="https://idealmobilidz.com/" target="_blank" style="color:var(--primary); text-decoration:none; font-weight:700;">Voir le projet <i class="fa-solid fa-arrow-right"></i></a>
+            <div class="browser-header"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+            <div class="project-icon-area"><i class="fa-solid fa-cart-shopping"></i></div>
+            <div class="project-info">
+                <h3 data-i18n="maq_3_title">Digital Ecom</h3>
+                <p data-i18n="maq_3_desc">Design d'une boutique en ligne moderne pour produits digitaux.</p>
+                <a href="https://smainyounes.github.io/cahiers-charges/digital-ecom/prop2/" target="_blank" class="project-link"><span data-i18n="proj_visit">Visiter le site</span> <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </div>
 
     </div>
-</div>
+</section>
 
-<!-- CONTACT SECTION -->
-<div class="container" id="contact">
-    <div class="contact-wrap" data-aos="zoom-in">
-        <div>
-            <h2 style="margin:0; font-size:2.5rem; letter-spacing: -1px;">Collaborons ensemble.</h2>
-            <p style="color:var(--text-muted); margin:25px 0; font-size: 1.1rem;">Une idée de projet ? Contactez-moi pour en discuter et obtenir un devis gratuit.</p>
-            <div style="font-size: 1rem; display: flex; flex-direction: column; gap: 15px;">
-                <span><i class="fa-solid fa-envelope" style="color:var(--primary); margin-right: 10px;"></i> younes.abd.smain@gmail.com</span>
-                <span><i class="fa-solid fa-phone" style="color:var(--primary); margin-right: 10px;"></i> 0675 32 64 51</span>
-                <span><i class="fa-solid fa-phone" style="color:var(--primary); margin-right: 10px;"></i> 0552 79 14 23</span>
-            </div>
+<!-- CONTACT -->
+<section class="container" id="contact">
+    <div class="contact-card" data-aos="fade-up">
+        <div class="contact-info">
+            <h3 data-i18n="contact_title">Travaillons ensemble.</h3>
+            <p data-i18n="contact_desc">Une idée d'application ? Un besoin d'optimisation ? N'hésitez pas à me contacter pour discuter de vos projets numériques et obtenir un devis.</p>
+            
+            <div class="contact-method"><i class="fa-solid fa-envelope"></i> younes.abd.smain@gmail.com</div>
+            <div class="contact-method"><i class="fa-solid fa-phone"></i> 0675 32 64 51</div>
+            <div class="contact-method"><i class="fab fa-whatsapp"></i> 0552 79 14 23</div>
         </div>
-        <form class="contact-form" id="contactForm">
-            <input type="text" name="name" placeholder="Votre nom" required>
-            <input type="email" name="email" placeholder="Votre email" required>
         
-            <!-- Honeypot (hidden from users) -->
+        <form id="contactForm">
+            <div class="form-group"><input type="text" class="form-control" name="name" data-i18n-placeholder="contact_name_ph" placeholder="Votre nom complet" required></div>
+            <div class="form-group"><input type="email" class="form-control" name="email" data-i18n-placeholder="contact_email_ph" placeholder="Votre adresse email" required></div>
             <input type="text" name="company" style="display:none">
-        
-            <textarea name="message" placeholder="Votre message..." rows="5" required></textarea>
-        
-            <button class="contact-btn" type="submit" id="send_button">
-                Envoyer le message
-                <i class="fa-solid fa-paper-plane" style="margin-left: 10px;"></i>
+            <div class="form-group"><textarea class="form-control" name="message" rows="4" data-i18n-placeholder="contact_msg_ph" placeholder="Décrivez votre besoin..." required></textarea></div>
+            <button class="btn-submit" type="submit" id="send_button">
+                <span data-i18n="contact_btn">Envoyer le message</span> <i class="fa-solid fa-paper-plane"></i>
             </button>
-        
-            <p id="formStatus" style="margin-top:15px;font-size:0.95rem;"></p>
+            <p id="formStatus" style="margin-top:15px; font-size:0.9rem; text-align:center; font-weight: 600;"></p>
         </form>
-        
-       
     </div>
-</div>
+</section>
 
-<footer style="text-align:center; padding: 20px 20px; border-top:1px solid var(--border); margin-top: 50px;">
-    <p style="font-size:0.9rem; opacity:0.7;">© <span id="current_year"></span> SMAIN YOUNES. Tous droits réservés.</p>
-    <!-- <div style="margin-top: 20px; display: flex; justify-content: center; gap: 20px; font-size: 1.5rem;">
-        <a href="#" style="color:var(--text-main)"><i class="fab fa-github"></i></a>
-        <a href="#" style="color:var(--text-main)"><i class="fab fa-linkedin"></i></a>
-    </div> -->
+<footer>
+    <p>© <span id="current_year"></span> SMAIN YOUNES. <span data-i18n="footer_text">Tous droits réservés. | Construit avec passion.</span></p>
 </footer>
 
 <!-- Floating WhatsApp -->
-<a href="https://wa.me/213552791423" class="whatsapp-btn" target="_blank">
+<a href="https://wa.me/213552791423" class="whatsapp-btn" target="_blank" title="WhatsApp">
     <i class="fab fa-whatsapp"></i>
 </a>
 
+<!-- Scripts -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LfgkzQsAAAAAAuOnjqjUVGAfTsrx6-CTK3r3Pux"></script>
 
 <script>
-    AOS.init({ duration: 800, once: true });
+    AOS.init({ duration: 800, once: true, offset: 50 });
+    document.getElementById("current_year").textContent = new Date().getFullYear();
 
-    // Theme Toggle Logic
+    // Theme logic
     const themeBtn = document.getElementById('theme-btn');
     const html = document.documentElement;
     themeBtn.addEventListener('click', () => {
@@ -410,16 +480,176 @@
         themeBtn.innerHTML = next === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
     });
 
-    document.getElementById("current_year").textContent = new Date().getFullYear();
-</script>
-<script>
+    // --- LANG SWITCHER LOGIC (ON CLICK) ---
+    const langBtn = document.getElementById('current-lang-btn');
+    const langMenu = document.getElementById('lang-menu');
+
+    // Toggle menu on button click
+    langBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Empêche la fermeture immédiate
+        langMenu.classList.toggle('show');
+    });
+
+    // Close menu when clicking anywhere else on the document
+    document.addEventListener('click', (e) => {
+        if (!langMenu.contains(e.target) && e.target !== langBtn) {
+            langMenu.classList.remove('show');
+        }
+    });
+
+    // --- DICTIONNAIRE MULTILINGUE ---
+    const translations = {
+        fr: {
+            nav_tech: "Tech", nav_exp: "Expériences", nav_proj: "Projets", nav_maq: "Maquettes", nav_cv: "CV",
+            hero_badge: "Développeur Fullstack", hero_title_1: "Architecte Web", hero_title_2: "& Expert Laravel.",
+            hero_desc: "Je transforme des concepts complexes en applications web performantes, évolutives et esthétiques. De la base de données à l'interface utilisateur.",
+            hero_btn_1: "Démarrer un projet", hero_btn_2: "Voir mon travail",
+            tech_title: "Technologies de prédilection", tech_desc: "Les outils que j'utilise au quotidien pour construire l'avenir du web.",
+            exp_title: "Parcours Professionnel", exp_desc: "Plusieurs années d'expérience dans la création de solutions digitales.",
+            exp_1_date: "Sept 2024 – Présent", exp_1_title: "Développeur Web Fullstack", exp_1_desc: "Refonte complète de la plateforme (frontend et backend). Intégration de fonctionnalités métier complexes, optimisation des performances globales et maintenance applicative continue.",
+            exp_2_date: "2020 – Présent", exp_2_title: "Développeur Laravel Indépendant", exp_2_comp: "Freelance", exp_2_desc: "Conception d’applications sur-mesure sous Laravel, résolution de bugs critiques, conception et optimisation de bases de données relationnelles pour divers clients.",
+            exp_3_date: "2023 – 2024", exp_3_title: "Développeur Web Fullstack", exp_3_desc: "Intégration fidèle de maquettes Figma vers des architectures HTML/Bootstrap/Laravel. Assuré la maintenance corrective et évolutive des projets de l'agence.",
+            exp_4_date: "2021 – 2023", exp_4_title: "Développeur Web Fullstack", exp_4_desc: "Développement from scratch, création d'API robustes pour applications mobiles, et implémentation de processus UX/UI avancés.",
+            proj_title: "Portfolio Majeur", proj_desc: "Sélection de projets récents déployés en production.",
+            proj_visit: "Visiter le site",
+            proj_1_desc: "Plateforme dédiée au soutien émotionnel et psychologique pour les adolescents. Interface sécurisée et confidentielle.",
+            proj_2_desc: "Plateforme SaaS e-commerce innovante permettant la gestion multi-boutiques avec un back-office centralisé.",
+            proj_3_desc: "Système éducatif complet intégrant une API performante servant de base à une application mobile native.",
+            proj_4_desc: "ERP sur-mesure pour la location de véhicules : gestion des plannings, de la flotte et paiement en ligne intégré.",
+            proj_5_desc: "Portail corporate B2B de réservation et gestion des formations professionnelles pour Siemens Algérie.",
+            proj_6_desc: "Boutique e-commerce d'ameublement avec refonte approfondie de l'UX/UI et optimisation du tunnel d'achat.",
+            proj_7_desc: "Marketplace dédiée au listing de produits d'importation (Caba) incluant un espace pour poster des demandes.",
+            proj_8_desc: "Plateforme d'e-learning performante conçue pour un professeur de mathématiques (vente de cours vidéo).",
+            proj_9_desc: "Landing page moderne et vitrine digitale pour une entreprise spécialisée dans le transit et la logistique.",
+            
+            maq_title: "Propositions & Maquettes", 
+            maq_desc: "Concepts, maquettes et propositions non retenus par les clients.",
+            maq_1_title: "CM Blida", maq_1_desc: "Proposition d'interface pour une entreprise locale (concept non retenu).",
+            maq_2_title: "Clothes Gros", maq_2_desc: "Maquette e-commerce B2B pour la vente de vêtements en gros.",
+            maq_3_title: "Digital Ecom", maq_3_desc: "Design d'une boutique en ligne moderne pour produits digitaux.",
+            
+            contact_title: "Travaillons ensemble.", contact_desc: "Une idée d'application ? Un besoin d'optimisation ? N'hésitez pas à me contacter pour discuter de vos projets numériques et obtenir un devis.",
+            contact_name_ph: "Votre nom complet", contact_email_ph: "Votre adresse email", contact_msg_ph: "Décrivez votre besoin...", contact_btn: "Envoyer le message",
+            footer_text: "Tous droits réservés. | Construit avec passion."
+        },
+        en: {
+            nav_tech: "Tech", nav_exp: "Experience", nav_proj: "Projects", nav_maq: "Mockups", nav_cv: "Resume",
+            hero_badge: "Fullstack Developer", hero_title_1: "Web Architect", hero_title_2: "& Laravel Expert.",
+            hero_desc: "I transform complex concepts into high-performance, scalable, and aesthetic web applications. From database to user interface.",
+            hero_btn_1: "Start a project", hero_btn_2: "See my work",
+            tech_title: "Preferred Tech Stack", tech_desc: "The tools I use daily to build the future of the web.",
+            exp_title: "Professional Journey", exp_desc: "Years of experience in creating digital solutions.",
+            exp_1_date: "Sep 2024 – Present", exp_1_title: "Fullstack Web Developer", exp_1_desc: "Complete platform redesign (frontend & backend). Integration of complex business features, global performance optimization, and continuous maintenance.",
+            exp_2_date: "2020 – Present", exp_2_title: "Freelance Laravel Developer", exp_2_comp: "Freelance", exp_2_desc: "Design of custom Laravel applications, critical bug resolution, database design and optimization for various clients.",
+            exp_3_date: "2023 – 2024", exp_3_title: "Fullstack Web Developer", exp_3_desc: "Faithful integration of Figma mockups into HTML/Bootstrap/Laravel architectures. Managed corrective and evolutive maintenance.",
+            exp_4_date: "2021 – 2023", exp_4_title: "Fullstack Web Developer", exp_4_desc: "From-scratch development, creation of robust APIs for mobile apps, and implementation of advanced UX/UI processes.",
+            proj_title: "Major Portfolio", proj_desc: "Selection of recent projects deployed in production.",
+            proj_visit: "Visit Website",
+            proj_1_desc: "Platform dedicated to emotional and psychological support for teenagers. Secure and confidential interface.",
+            proj_2_desc: "Innovative SaaS e-commerce platform enabling multi-store management with a centralized back-office.",
+            proj_3_desc: "Comprehensive educational system integrating a high-performance API serving as the backend for a native mobile app.",
+            proj_4_desc: "Custom ERP for vehicle rental: schedule management, fleet tracking, and integrated online payment.",
+            proj_5_desc: "B2B corporate portal for booking and managing professional training for Siemens Algeria.",
+            proj_6_desc: "Furniture e-commerce store with deep UX/UI redesign and checkout funnel optimization.",
+            proj_7_desc: "Marketplace dedicated to listing imported products (Caba) including a space to post specific requests.",
+            proj_8_desc: "High-performance e-learning platform designed for a math teacher (video course sales).",
+            proj_9_desc: "Modern landing page and digital showcase for a company specializing in transit and logistics.",
+            
+            maq_title: "Proposals & Mockups", 
+            maq_desc: "Concepts, mockups, and proposals not selected by clients.",
+            maq_1_title: "CM Blida", maq_1_desc: "Interface proposal for a local company (unselected concept).",
+            maq_2_title: "Clothes Gros", maq_2_desc: "B2B e-commerce mockup for wholesale clothing.",
+            maq_3_title: "Digital Ecom", maq_3_desc: "Modern online store design for digital products.",
+            
+            contact_title: "Let's work together.", contact_desc: "An app idea? Need optimization? Feel free to contact me to discuss your digital projects and get a free quote.",
+            contact_name_ph: "Your full name", contact_email_ph: "Your email address", contact_msg_ph: "Describe your needs...", contact_btn: "Send Message",
+            footer_text: "All rights reserved. | Built with passion."
+        },
+        ar: {
+            nav_tech: "التقنيات", nav_exp: "الخبرات", nav_proj: "المشاريع", nav_maq: "النماذج", nav_cv: "السيرة الذاتية",
+            hero_badge: "مطور ويب شامل", hero_title_1: "مهندس ويب", hero_title_2: "وخبير لارافيل.",
+            hero_desc: "أقوم بتحويل المفاهيم المعقدة إلى تطبيقات ويب عالية الأداء وقابلة للتطوير. من قواعد البيانات إلى واجهة المستخدم.",
+            hero_btn_1: "ابدأ مشروعاً", hero_btn_2: "تصفح أعمالي",
+            tech_title: "التقنيات المفضلة", tech_desc: "الأدوات التي أستخدمها يوميًا لبناء مستقبل الويب.",
+            exp_title: "المسار المهني", exp_desc: "سنوات من الخبرة في إنشاء الحلول الرقمية.",
+            exp_1_date: "سبتمبر 2024 – الحاضر", exp_1_title: "مطور ويب شامل", exp_1_desc: "إعادة تصميم شاملة للمنصة (الواجهة الأمامية والخلفية). دمج ميزات الأعمال المعقدة، تحسين الأداء العام، والصيانة المستمرة.",
+            exp_2_date: "2020 – الحاضر", exp_2_title: "مطور لارافيل مستقل", exp_2_comp: "عمل حر", exp_2_desc: "تصميم تطبيقات مخصصة باستخدام Laravel، حل الأخطاء البرمجية المعقدة، وتصميم وتحسين قواعد البيانات لعملاء مختلفين.",
+            exp_3_date: "2023 – 2024", exp_3_title: "مطور ويب شامل", exp_3_desc: "تحويل دقيق لتصميمات Figma إلى هيكلة HTML/Bootstrap/Laravel. ضمان الصيانة التصحيحية والتطويرية لمشاريع الوكالة.",
+            exp_4_date: "2021 – 2023", exp_4_title: "مطور ويب شامل", exp_4_desc: "تطوير من الصفر، إنشاء واجهات برمجة تطبيقات (APIs) قوية لتطبيقات الهاتف، وتنفيذ عمليات متقدمة لتجربة واجهة المستخدم.",
+            proj_title: "أبرز الأعمال", proj_desc: "مجموعة من أحدث المشاريع التي تم إطلاقها.",
+            proj_visit: "زيارة الموقع",
+            proj_1_desc: "منصة مخصصة للدعم العاطفي والنفسي للمراهقين. واجهة آمنة وسرية.",
+            proj_2_desc: "منصة تجارة إلكترونية SaaS مبتكرة تتيح إدارة متاجر متعددة بلوحة تحكم مركزية.",
+            proj_3_desc: "نظام تعليمي متكامل يتضمن API عالي الأداء يعمل كقاعدة لتطبيق هاتف أصلي.",
+            proj_4_desc: "نظام ERP مخصص لتأجير السيارات: إدارة الجداول الزمنية، الأسطول، والدفع الإلكتروني المدمج.",
+            proj_5_desc: "بوابة أعمال (B2B) لحجز وإدارة التدريبات المهنية لشركة سيمنز الجزائر.",
+            proj_6_desc: "متجر إلكتروني للأثاث مع إعادة تصميم شاملة لتجربة المستخدم وتحسين مسار الشراء.",
+            proj_7_desc: "منصة مخصصة لعرض المنتجات المستوردة (Caba) تتضمن مساحة لنشر الطلبات الخاصة.",
+            proj_8_desc: "منصة تعليم إلكتروني عالية الأداء مصممة لأستاذ رياضيات (لبيع الدورات المسجلة).",
+            proj_9_desc: "صفحة هبوط حديثة وواجهة رقمية لشركة متخصصة في النقل والخدمات اللوجستية.",
+            
+            maq_title: "نماذج وتصميمات مقترحة", 
+            maq_desc: "مفاهيم، نماذج، ومقترحات لم يتم اعتمادها من قبل العملاء.",
+            maq_1_title: "CM Blida", maq_1_desc: "اقتراح واجهة لشركة محلية (مفهوم لم يتم اعتماده).",
+            maq_2_title: "Clothes Gros", maq_2_desc: "نموذج متجر إلكتروني B2B لبيع الملابس بالجملة.",
+            maq_3_title: "Digital Ecom", maq_3_desc: "تصميم متجر إلكتروني حديث للمنتجات الرقمية.",
+            
+            contact_title: "لنتعاون معاً.", contact_desc: "هل لديك فكرة تطبيق؟ أو تحتاج إلى تحسين منصتك؟ لا تتردد في التواصل معي لمناقشة مشاريعك الرقمية والحصول على عرض أسعار مجاني.",
+            contact_name_ph: "الاسم الكامل", contact_email_ph: "البريد الإلكتروني", contact_msg_ph: "صف احتياجاتك...", contact_btn: "إرسال الرسالة",
+            footer_text: "جميع الحقوق محفوظة. | صُنع بشغف."
+        }
+    };
+
+    function changeLang(lang) {
+        html.setAttribute('lang', lang);
+        
+        // RTL Logic
+        if(lang === 'ar') {
+            html.setAttribute('dir', 'rtl');
+        } else {
+            html.setAttribute('dir', 'ltr');
+        }
+
+        // Update Text
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if(translations[lang][key]) el.innerHTML = translations[lang][key];
+        });
+
+        // Update Placeholders
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if(translations[lang][key]) el.setAttribute('placeholder', translations[lang][key]);
+        });
+
+        // Update Button Display
+        const btnText = lang === 'fr' ? 'FR' : (lang === 'en' ? 'EN' : 'AR');
+        document.getElementById('current-lang-btn').innerHTML = `<i class="fa-solid fa-globe"></i> ${btnText}`;
+        
+        // Fermer le menu après la sélection
+        langMenu.classList.remove('show');
+
+        localStorage.setItem('preferredLang', lang);
+    }
+
+    // Load saved lang on startup
+    const savedLang = localStorage.getItem('preferredLang') || 'fr';
+    changeLang(savedLang);
+
+    // Form logic
     const form = document.getElementById("contactForm");
     const status = document.getElementById("formStatus");
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbybG1_c3PVtP0_B3YJtekCWl5HnmaBsu-547zXUk27Aazqaj0XdA8HJYYVRF8_vKoiZ1w/exec";
     
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      status.textContent = "Envoi en cours...";
+      
+      const currentLang = html.getAttribute('lang');
+      const waitMsgs = { fr: "Envoi en cours...", en: "Sending...", ar: "جاري الإرسال..." };
+      const successMsgs = { fr: "Message envoyé avec succès !", en: "Message sent successfully!", ar: "تم إرسال الرسالة بنجاح!" };
+      const errorMsgs = { fr: "Une erreur est survenue.", en: "An error occurred.", ar: "حدث خطأ ما." };
+
+      status.textContent = waitMsgs[currentLang];
       status.style.color = "var(--text-muted)";
       const btn = document.getElementById("send_button");
       btn.disabled = true;
@@ -434,28 +664,23 @@
         data.append("company", form.company.value);
         data.append("token", token);
 
-    
         try {
-          const res = await fetch(SCRIPT_URL, {
-            method: "POST",
-            body: data,
-          });
-    
+          const res = await fetch(SCRIPT_URL, { method: "POST", body: data });
           const result = await res.json();
     
           if (result.success) {
-            status.textContent = "Message envoyé avec succès. Je vous répondrai rapidement.";
-            status.style.color = "var(--primary)";
+            status.textContent = successMsgs[currentLang];
+            status.style.color = "#00F5D4"; 
             form.reset();
           } else {
-            status.textContent = result.message || "Une erreur est survenue.";
-            status.style.color = "red";
+            status.textContent = errorMsgs[currentLang];
+            status.style.color = "#FF5F56"; 
           }
-    
         } catch {
-          status.textContent = "Erreur réseau. Veuillez réessayer.";
-          status.style.color = "red";
+          status.textContent = errorMsgs[currentLang];
+          status.style.color = "#FF5F56";
         }
+        
         btn.disabled = false;
       });
     });
